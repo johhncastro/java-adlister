@@ -10,8 +10,10 @@ public class counter extends HttpServlet {
     public int num = 0;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("number of people that have seen this page: "+ num);
         num += 1;
+        if (req.getParameter("reset") != null){
+            num =1;
+        }
+        resp.getWriter().println("number of people that have seen this page: "+ num);
     }
-
 }
