@@ -1,5 +1,6 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.controllers.Config;
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
@@ -14,6 +15,7 @@ public class MySQLAdsDao implements Ads {
     private Connection connection = null;
 
     public MySQLAdsDao(Config config) {
+
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
@@ -41,7 +43,8 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
+//            String insertQuery = "INSERT INTO adlister_db.ads (user_id, title, description) VALUES (" + ad.getUserId() + ",'" + ad.getTitle() + "', '" + ad.getDescription() + "')";
+            String insertQuery = "INSERT INTO adlister_db.ads (user_id, title, description) VALUES (?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
